@@ -1,8 +1,8 @@
 /* jshint node: true */
 'use strict';
 
-var PIXI = require('pixi/pixi');
-var StateManager = require('state/StateManager');
+var PIXI = require('lib/pixi/pixi');
+var StateManager = require('src/state/StateManager');
 
 var Game = function(width, height) {
 

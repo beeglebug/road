@@ -8,7 +8,7 @@ var transform = require('vinyl-transform');
 gulp.task('browserify', function() {
 
     var browserified = transform(function(filename) {
-        var b = browserify(filename, { paths: ['./node_modules', './app', './lib'], debug : true });
+        var b = browserify(filename, { paths: ['./node_modules', './'], debug : true });
         return b.bundle();
     });
 
@@ -19,7 +19,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./app/**/*.js', ['browserify']);
+    gulp.watch(['./app/**/*.js', './src/**/*.js'], ['browserify']);
 });
 
 gulp.task('default', ['browserify']);

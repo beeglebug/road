@@ -1,9 +1,13 @@
 /* jshint node: true */
 'use strict';
 
+var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
+
 var StateManager = function() {
 
     this.currentState = null;
+
+    this.displayRoot = new DisplayObjectContainer();
 };
 
 StateManager.prototype.setState = function(state) {

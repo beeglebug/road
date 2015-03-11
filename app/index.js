@@ -1,8 +1,6 @@
-var Game = require('Game');
-var State = require('state/State');
+/* jshint node: true */
+'use strict';
 
+var RoadGame = require('app/RoadGame');
 
-var game = new Game();
-var beginState = new State();
-
-game.stateManager.setState(beginState);
+var game = new RoadGame();
