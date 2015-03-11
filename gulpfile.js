@@ -8,18 +8,18 @@ var transform = require('vinyl-transform');
 gulp.task('browserify', function() {
 
     var browserified = transform(function(filename) {
-        var b = browserify(filename, { paths: ['./node_modules', './js/src', './js/lib'], debug : true });
+        var b = browserify(filename, { paths: ['./node_modules', './app', './lib'], debug : true });
         return b.bundle();
     });
 
-    return gulp.src('./js/index.js')
+    return gulp.src('./app/index.js')
         .pipe(browserified)
         .pipe(rename(project.name + '.js'))
         .pipe(gulp.dest('./build/'));
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./js/**/*.js', ['browserify']);
+    gulp.watch('./app/**/*.js', ['browserify']);
 });
 
 gulp.task('default', ['browserify']);
