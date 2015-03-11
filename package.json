@@ -7,5 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "gulp-rename": "~1.2.0",
+    "vinyl-transform": "~1.0.0",
+    "browserify": "~9.0.3",
+    "gulp-watch": "~4.1.1",
+    "gulp": "~3.8.11"
+  }
 }
