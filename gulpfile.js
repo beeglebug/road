@@ -21,3 +21,5 @@ gulp.task('browserify', function() {
 gulp.task('watch', function () {
     gulp.watch('./js/**/*.js', ['browserify']);
 });
+
+gulp.task('default', ['browserify']);
