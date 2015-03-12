@@ -16,6 +16,11 @@ var State = function(game) {
     this.game = game;
 
     /**
+     * @type {string}
+     */
+    this.name = '';
+
+    /**
      * @type {DisplayObjectContainer}
      */
     this.displayRoot = new DisplayObjectContainer();
@@ -25,6 +30,12 @@ var State = function(game) {
      */
     this.loader = new AssetLoader();
 
+    /**
+     * @type {boolean}
+     * @private
+     */
+    this._loaded = false;
+
     this.loader.addEventListener('onComplete', this._assetsLoaded.bind(this));
 };
 
@@ -33,14 +44,35 @@ var State = function(game) {
  */
 State.prototype._assetsLoaded = function() {
 
+    this._loaded = true;
+
     this.init();
 };
 
+/**
+ * clean up the state before leaving
+ */
+State.prototype.shutdown = function() {
+
+    this.displayRoot.removeChildren();
+};
+
+/**
+ * start the state up
+ */
 State.prototype.boot = function() {
 
-    this.load();
+    if(!this._loaded) {
 
-    this.loader.load();
+        this.load();
+
+        this.loader.load();
+
+    } else {
+
+        this.init();
+
+    }
 };
 
 State.prototype.load = function() {};

@@ -23,10 +23,15 @@ AssetLoader.prototype = Object.create(PixiAssetLoader.prototype);
 AssetLoader.prototype.load = function() {
 
     if(this.assetURLs.length == 0) {
-        return this.emit('onComplete', { content: this });
+
+        this.emit('onComplete', { content: this });
+
+        return false;
     }
 
-    return PixiAssetLoader.prototype.load.call(this);
+    PixiAssetLoader.prototype.load.call(this);
+
+    return true;
 };
 
 /**

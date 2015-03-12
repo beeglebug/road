@@ -46,6 +46,10 @@ StateManager.prototype.setState = function(key) {
 
     if(!state) { return false; }
 
+    if(this.currentState) {
+        this.currentState.shutdown();
+    }
+
     this.currentState = state;
 
     this.currentState.boot();

@@ -3,6 +3,7 @@
 
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
+var Rectangle = require('lib/pixi/pixi').Rectangle;
 
 /**
  * @extends State
