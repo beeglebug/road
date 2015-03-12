@@ -4,9 +4,9 @@
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
 
-var TravelState = function() {
+var TravelState = function(game) {
 
-    State.call(this);
+    State.call(this, game);
 };
 
 TravelState.prototype = Object.create(State.prototype);
