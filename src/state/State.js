@@ -2,6 +2,7 @@
 'use strict';
 
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
+var AssetLoader = require('src/AssetLoader');
 
 /**
  * @param {Game} game
@@ -14,13 +15,37 @@ var State = function(game) {
      */
     this.game = game;
 
+    /**
+     * @type {DisplayObjectContainer}
+     */
     this.displayRoot = new DisplayObjectContainer();
+
+    /**
+     * @type {AssetLoader}
+     */
+    this.loader = new AssetLoader();
+
+    this.loader.addEventListener('onComplete', this._assetsLoaded.bind(this));
 };
 
-State.prototype.init = function() {
+/**
+ * @private
+ */
+State.prototype._assetsLoaded = function() {
 
-    console.log('state %s started', this.name);
+    this.init();
 };
+
+State.prototype.boot = function() {
+
+    this.load();
+
+    this.loader.load();
+};
+
+State.prototype.load = function() {};
+
+State.prototype.init = function() {};
 
 State.prototype.update = function(delta) {};
 

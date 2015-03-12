@@ -19,7 +19,7 @@ gulp.task('browserify', function() {
 });
 
 gulp.task('watch', function () {
-    gulp.watch(['./app/**/*.js', './src/**/*.js'], ['browserify']);
+    gulp.watch(['./app/**/*.js', './lib/**/*.js', './src/**/*.js'], ['browserify']);
 });
 
 gulp.task('default', ['browserify']);

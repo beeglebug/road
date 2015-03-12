@@ -39,7 +39,7 @@ StateManager.prototype.setState = function(key) {
 
     this.currentState = state;
 
-    this.currentState.init();
+    this.currentState.boot();
 
     this.displayRoot.removeChildren();
 

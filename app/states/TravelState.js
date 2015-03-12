@@ -4,6 +4,11 @@
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
 
+/**
+ * @extends State
+ * @param game
+ * @constructor
+ */
 var TravelState = function(game) {
 
     State.call(this, game);
@@ -27,13 +32,12 @@ TravelState.prototype.init = function() {
 TravelState.prototype.update = function(delta) {
 
     var speed = 3;
-    var max = 700;
+    var max = 790;
     this.test.position.x += speed;
 
     if(this.test.position.x >= max) {
         this.game.stateManager.setState('destination');
     }
-
 };
 
 module.exports = TravelState;
