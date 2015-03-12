@@ -15,12 +15,24 @@ TravelState.prototype.init = function() {
 
     var gfx = new Graphics();
     gfx.beginFill(0x000000);
-    gfx.drawRect(0, 0, 100, 50);
+    gfx.drawRect(0, 0, 10, 10);
+
+    gfx.position.set(0, 100);
+
+    this.test = gfx;
 
     this.displayRoot.addChild(gfx);
 };
 
 TravelState.prototype.update = function(delta) {
+
+    var speed = 3;
+    var max = 700;
+    this.test.position.x += speed;
+
+    if(this.test.position.x >= max) {
+        this.game.stateManager.setState('destination');
+    }
 
 };
 
