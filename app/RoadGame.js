@@ -4,9 +4,9 @@
 var Game = require('src/Game');
 var TravelState = require('app/states/TravelState');
 
-var RoadGame = function(width, height) {
+var RoadGame = function(width, height, selector) {
 
-    Game.call(this, width, height);
+    Game.call(this, width, height, selector);
 
     this.stateManager.addState('travel', new TravelState());
 

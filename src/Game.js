@@ -5,7 +5,7 @@ var Stage = require('lib/pixi/pixi').Stage;
 var WebGLRenderer = require('lib/pixi/pixi').WebGLRenderer;
 var StateManager = require('src/state/StateManager');
 
-var Game = function(width, height) {
+var Game = function(width, height, selector) {
 
     this.stage = new Stage(0xDDDDDD, true);
 
@@ -14,6 +14,8 @@ var Game = function(width, height) {
     this.stateManager = new StateManager();
 
     this.stage.addChild(this.stateManager.displayRoot);
+
+    this.addToDom(selector);
 
     // bind loop for raf
     this.loop = this._loop.bind(this);
