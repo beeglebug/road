@@ -5,7 +5,7 @@ var RoadGame = require('app/RoadGame');
 
 var game = new RoadGame(800, 600);
 
-game.addToDom(document.querySelector('#game'));
+game.addToDom('#game');
 
 game.start();
 

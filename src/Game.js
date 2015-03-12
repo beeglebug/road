@@ -18,9 +18,9 @@ var Game = function(width, height) {
     this.loop = this._loop.bind(this);
 };
 
-Game.prototype.addToDom = function(element) {
+Game.prototype.addToDom = function(selector) {
 
-    this.domElement = element;
+    this.domElement = document.querySelector(selector);
 
     this.domElement.appendChild(this.renderer.view);
 
