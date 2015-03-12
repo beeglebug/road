@@ -9,10 +9,19 @@ var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
  */
 var StateManager = function() {
 
+    /**
+     * @type {Object.<string, State>}
+     */
     this.states = {};
 
+    /**
+     * @type {State}
+     */
     this.currentState = null;
 
+    /**
+     * @type {DisplayObjectContainer}
+     */
     this.displayRoot = new DisplayObjectContainer();
 };
 

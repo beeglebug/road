@@ -1,6 +1,8 @@
 var PixiAssetLoader = require('lib/pixi/pixi').AssetLoader;
 
 /**
+ * An extension of Pixi AssetLoader which works if no assets are added
+ * and allows adding extra assets after construction
  * @extends PixiAssetLoader
  * @param assetURLs
  * @param crossorigin
@@ -15,6 +17,9 @@ var AssetLoader = function(assetURLs, crossorigin) {
 
 AssetLoader.prototype = Object.create(PixiAssetLoader.prototype);
 
+/**
+ * Start the loading
+ */
 AssetLoader.prototype.load = function() {
 
     if(this.assetURLs.length == 0) {
@@ -24,6 +29,10 @@ AssetLoader.prototype.load = function() {
     return PixiAssetLoader.prototype.load.call(this);
 };
 
+/**
+ * Add an asset to the loader
+ * @param {String} asset url of asset to add
+ */
 AssetLoader.prototype.add = function(asset) {
 
     this.assetURLs.push(asset);

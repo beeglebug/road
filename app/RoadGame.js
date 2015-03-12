@@ -6,6 +6,13 @@ var MainMenuState = require('app/states/MainMenuState');
 var TravelState = require('app/states/TravelState');
 var DestinationState = require('app/states/DestinationState');
 
+/**
+ * @extends Game
+ * @param width
+ * @param height
+ * @param selector
+ * @constructor
+ */
 var RoadGame = function(width, height, selector) {
 
     Game.call(this, width, height, selector);

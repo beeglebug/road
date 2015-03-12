@@ -7,12 +7,17 @@ var StateManager = require('src/state/StateManager');
 
 var Game = function(width, height, selector) {
 
+    /**
+     * @type {Stage}
+     */
     this.stage = new Stage(0xDDDDDD, true);
 
+    /**
+     * @type {WebGLRenderer}
+     */
     this.renderer = new WebGLRenderer(width, height);
 
     /**
-     *
      * @type {StateManager}
      */
     this.stateManager = new StateManager();
