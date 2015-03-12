@@ -3,10 +3,17 @@
 
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
 
+/**
+ * @param {Game} game
+ * @constructor
+ */
 var State = function(game) {
 
+    /**
+     * @type {Game}
+     */
     this.game = game;
-    
+
     this.displayRoot = new DisplayObjectContainer();
 };
 

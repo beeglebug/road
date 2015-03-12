@@ -11,6 +11,10 @@ var Game = function(width, height, selector) {
 
     this.renderer = new WebGLRenderer(width, height);
 
+    /**
+     *
+     * @type {StateManager}
+     */
     this.stateManager = new StateManager();
 
     this.stage.addChild(this.stateManager.displayRoot);
