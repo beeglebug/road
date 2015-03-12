@@ -4,13 +4,13 @@
 var Game = require('src/Game');
 var TravelState = require('app/states/TravelState');
 
-var RoadGame = function() {
+var RoadGame = function(width, height) {
 
-    Game.call(this);
+    Game.call(this, width, height);
 
-    var state = new TravelState();
+    this.stateManager.addState('travel', new TravelState());
 
-    this.stateManager.setState(state);
+    this.stateManager.setState('travel');
 };
 
 RoadGame.prototype = Object.create(Game.prototype);

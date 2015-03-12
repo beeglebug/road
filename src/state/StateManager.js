@@ -5,14 +5,29 @@ var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
 
 var StateManager = function() {
 
+    this.states = {};
+
     this.currentState = null;
 
     this.displayRoot = new DisplayObjectContainer();
 };
 
-StateManager.prototype.setState = function(state) {
+StateManager.prototype.addState = function(key, state) {
+
+    state.name = key;
+
+    this.states[key] = state;
+};
+
+StateManager.prototype.setState = function(key) {
+
+    var state = this.states[key];
+
+    if(!state) { return false; }
 
     this.currentState = state;
+
+    this.currentState.init();
 
     this.displayRoot.removeChildren();
 

@@ -9,4 +9,11 @@ var State = function() {
 
 };
 
+State.prototype.init = function() {
+
+    console.log('state %s started', this.name);
+};
+
+State.prototype.update = function(delta) {};
+
 module.exports = State;

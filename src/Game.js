@@ -6,14 +6,29 @@ var StateManager = require('src/state/StateManager');
 
 var Game = function(width, height) {
 
-    this.stateManager = new StateManager();
-
     this.stage = new PIXI.Stage(0xDDDDDD, true);
 
     this.renderer = PIXI.autoDetectRenderer(width, height);
 
+    this.stateManager = new StateManager();
+
+    this.stage.addChild(this.stateManager.displayRoot);
+
     // bind loop for raf
     this.loop = this._loop.bind(this);
+};
+
+Game.prototype.addToDom = function(element) {
+
+    this.domElement = element;
+
+    this.domElement.appendChild(this.renderer.view);
+
+    // disable context menu
+    this.domElement.addEventListener("contextmenu", function(e) {
+        e.preventDefault();
+        return false;
+    });
 };
 
 Game.prototype.start = function() {
@@ -30,7 +45,7 @@ Game.prototype._loop = function(delta) {
 
     this.loopId = requestAnimationFrame(this.loop);
 
-    this.update();
+    this.stateManager.update(delta);
 
     this.renderer.render(this.stage);
 };
