@@ -1,14 +1,15 @@
 /* jshint node: true */
 'use strict';
 
-var PIXI = require('lib/pixi/pixi');
+var Stage = require('lib/pixi/pixi').Stage;
+var WebGLRenderer = require('lib/pixi/pixi').WebGLRenderer;
 var StateManager = require('src/state/StateManager');
 
 var Game = function(width, height) {
 
-    this.stage = new PIXI.Stage(0xDDDDDD, true);
+    this.stage = new Stage(0xDDDDDD, true);
 
-    this.renderer = PIXI.autoDetectRenderer(width, height);
+    this.renderer = new WebGLRenderer(width, height);
 
     this.stateManager = new StateManager();
 
