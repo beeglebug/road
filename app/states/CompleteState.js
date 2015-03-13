@@ -10,31 +10,33 @@ var Rectangle = require('lib/pixi/pixi').Rectangle;
  * @param game
  * @constructor
  */
-var DestinationState = function(game) {
+var CompleteState = function(game) {
 
     State.call(this, game);
 };
 
-DestinationState.prototype = Object.create(State.prototype);
+CompleteState.prototype = Object.create(State.prototype);
 
-DestinationState.prototype.init = function() {
+CompleteState.prototype.load = function() {};
+
+CompleteState.prototype.init = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
 
     this.displayRoot.click = function() {
 
-        this.game.stateManager.setState('map');
+        this.game.stateManager.setState('main-menu');
 
     }.bind(this);
 
-    var text1 = new BitmapText('arrived', { font: 'basis33' });
+    var text1 = new BitmapText('finished', { font: 'basis33' });
     text1.position.set(400, 300);
     this.displayRoot.addChild(text1);
 
-    var text2 = new BitmapText('click to go to map', { font: 'basis33' });
+    var text2 = new BitmapText('click to return to menu', { font: 'basis33' });
     text2.position.set(400, 350);
     this.displayRoot.addChild(text2);
 };
 
-module.exports = DestinationState;
+module.exports = CompleteState;

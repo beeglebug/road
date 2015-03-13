@@ -38,6 +38,17 @@ StateManager.prototype.addState = function(key, state) {
 
 /**
  * @param {String} key The unique identifier of the state
+ * @returns {State|undefined}
+ */
+StateManager.prototype.getState = function(key) {
+
+    return this.states[key];
+
+};
+
+
+/**
+ * @param {String} key The unique identifier of the state
  * @returns {boolean}
  */
 StateManager.prototype.setState = function(key) {

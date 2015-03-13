@@ -36,7 +36,10 @@ TravelState.prototype.update = function(delta) {
     this.test.position.x += speed;
 
     if(this.test.position.x >= max) {
-        this.game.stateManager.setState('destination');
+
+        // todo emit event
+        this.game.arriveAtLocation();
+
     }
 };
 

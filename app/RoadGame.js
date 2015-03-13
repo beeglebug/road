@@ -5,7 +5,8 @@ var Game = require('src/Game');
 var MainMenuState = require('app/states/MainMenuState');
 var MapState = require('app/states/MapState');
 var TravelState = require('app/states/TravelState');
-var DestinationState = require('app/states/DestinationState');
+var LocationState = require('app/states/LocationState');
+var CompleteState = require('app/states/CompleteState');
 
 /**
  * @extends Game
@@ -21,11 +22,30 @@ var RoadGame = function(width, height, selector) {
     this.stateManager.addState('main-menu', new MainMenuState(this));
     this.stateManager.addState('map', new MapState(this));
     this.stateManager.addState('travel', new TravelState(this));
-    this.stateManager.addState('destination', new DestinationState(this));
+    this.stateManager.addState('location', new LocationState(this));
+    this.stateManager.addState('complete', new CompleteState(this));
 
     this.stateManager.setState('main-menu');
 };
 
 RoadGame.prototype = Object.create(Game.prototype);
+
+RoadGame.prototype.arriveAtLocation = function() {
+
+    var mapState = this.stateManager.getState('map');
+
+    if(mapState.hasReachedDestination()) {
+        mapState.reset();
+        this.stateManager.setState('complete');
+    } else {
+        this.stateManager.setState('location');
+    }
+
+};
+
+
+
+
+
 
 module.exports = RoadGame;
