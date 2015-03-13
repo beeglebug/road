@@ -30,7 +30,7 @@ MainMenuState.prototype.init = function() {
 
     this.displayRoot.click = function() {
 
-        this.game.stateManager.setState('travel');
+        this.game.stateManager.setState('map');
 
     }.bind(this);
 

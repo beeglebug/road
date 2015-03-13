@@ -24,15 +24,15 @@ DestinationState.prototype.init = function() {
 
     this.displayRoot.click = function() {
 
-        this.game.stateManager.setState('travel');
+        this.game.stateManager.setState('map');
 
     }.bind(this);
 
-    var text1 = new BitmapText('done', { font: 'basis33' });
+    var text1 = new BitmapText('arrived', { font: 'basis33' });
     text1.position.set(400, 300);
     this.displayRoot.addChild(text1);
 
-    var text2 = new BitmapText('click to restart', { font: 'basis33' });
+    var text2 = new BitmapText('click to go to map', { font: 'basis33' });
     text2.position.set(400, 350);
     this.displayRoot.addChild(text2);
 };
