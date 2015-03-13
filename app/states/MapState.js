@@ -18,27 +18,29 @@ MapState.prototype = Object.create(State.prototype);
 
 MapState.prototype.init = function() {
 
-    var location = makeLocation();
-
-    location.click = function() {
-
+    var callback = function() {
         this.game.stateManager.setState('travel');
-
     }.bind(this);
 
-    this.displayRoot.addChild(location);
+    var location1 = makeLocation(50, 300, callback);
+    var location2 = makeLocation(250, 300, callback);
+    var location3 = makeLocation(500, 300, callback);
+
+    this.displayRoot.addChild(location1);
+    this.displayRoot.addChild(location2);
+    this.displayRoot.addChild(location3);
 };
 
 MapState.prototype.update = function(delta) {};
 
-function makeLocation() {
+function makeLocation(x, y, callback) {
 
     var gfx = new Graphics();
-    gfx.beginFill(0x333333);
-    gfx.drawRect(0, 0, 10, 10);
-
+    gfx.beginFill(0x880088);
+    gfx.drawRect(0, 0, 20, 20);
+    gfx.position.set(x,y);
     gfx.interactive = true;
-    //gfx.hitArea = new Rectangle(0, 0, 800, 600);
+    gfx.click = callback;
 
     return gfx;
 }
