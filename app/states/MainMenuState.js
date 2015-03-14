@@ -17,13 +17,13 @@ var MainMenuState = function(game) {
 
 MainMenuState.prototype = Object.create(State.prototype);
 
-MainMenuState.prototype.load = function() {
+MainMenuState.prototype.preload = function() {
 
     this.loader.add('fonts/basis33.fnt');
 
 };
 
-MainMenuState.prototype.init = function() {
+MainMenuState.prototype.create = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);

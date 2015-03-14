@@ -13,11 +13,13 @@ var Rectangle = require('lib/pixi/pixi').Rectangle;
 var LocationState = function(game) {
 
     State.call(this, game);
+
+    this.location = null;
 };
 
 LocationState.prototype = Object.create(State.prototype);
 
-LocationState.prototype.init = function() {
+LocationState.prototype.create = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
@@ -28,13 +30,20 @@ LocationState.prototype.init = function() {
 
     }.bind(this);
 
-    var text1 = new BitmapText('arrived', { font: 'basis33' });
+};
+
+LocationState.prototype.enter = function() {
+
+    this.displayRoot.removeChildren();
+
+    var text1 = new BitmapText('arrived at ' + this.location.name, { font: 'basis33' });
     text1.position.set(400, 300);
     this.displayRoot.addChild(text1);
 
     var text2 = new BitmapText('click to go to map', { font: 'basis33' });
     text2.position.set(400, 350);
     this.displayRoot.addChild(text2);
+
 };
 
 module.exports = LocationState;

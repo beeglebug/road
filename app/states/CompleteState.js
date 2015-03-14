@@ -17,9 +17,7 @@ var CompleteState = function(game) {
 
 CompleteState.prototype = Object.create(State.prototype);
 
-CompleteState.prototype.load = function() {};
-
-CompleteState.prototype.init = function() {
+CompleteState.prototype.create = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);

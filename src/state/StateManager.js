@@ -33,7 +33,7 @@ StateManager.prototype.addState = function(key, state) {
 
     state.name = key;
 
-    this.states[key] = state;
+    return this.states[key] = state;
 };
 
 /**
@@ -58,7 +58,7 @@ StateManager.prototype.setState = function(key) {
     if(!state) { return false; }
 
     if(this.currentState) {
-        this.currentState.shutdown();
+        this.currentState.exit();
     }
 
     this.currentState = state;

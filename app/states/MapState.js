@@ -3,6 +3,9 @@
 
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
+var MapLocation = require('app/map/MapLocation');
+var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
+var BitmapText = require('lib/pixi/pixi').BitmapText;
 
 /**
  * @extends State
@@ -13,83 +16,86 @@ var MapState = function (game) {
 
     State.call(this, game);
 
-    this.reset();
+    var l1 = new MapLocation(100, 300, 'location 1');
+    var l2 = new MapLocation(300, 250, 'location 2');
+    var l3 = new MapLocation(600, 320, 'location 3');
+
+    l1.connections = [l2];
+    l2.connections = [l1,l3];
+    l3.connections = [l2];
+
+    this.locations = [l1,l2,l3];
+
+    this.currentLocation = this.locations[0];
 };
 
 MapState.prototype = Object.create(State.prototype);
 
-MapState.prototype.reset = function() {
+MapState.prototype.draw = function () {
 
-    this.active = 1;
-    this.destination = 4;
-};
-
-MapState.prototype.init = function () {
+    this.displayRoot.removeChildren();
 
     var line = new Graphics();
     line.lineStyle(1, 0x000000);
-    line.moveTo(25, 300);
-    line.lineTo(775, 300);
-
-    var highlight = new Graphics();
-    highlight.lineStyle(1, 0x888888);
-    highlight.drawRect(-15, -15, 30, 30);
-
-    switch (this.active) {
-        case 1:
-            highlight.position.set(25, 300);
-            break;
-        case 2:
-            highlight.position.set(275, 300);
-            break;
-        case 3:
-            highlight.position.set(525, 300);
-            break;
-        case 4:
-            highlight.position.set(775, 300);
-            break;
-    }
-
-    var callback = function () {
-        this.game.stateManager.setState('travel');
-        this.active++;
-    }.bind(this);
-
-    var location1 = makeLocation(25, 300, false, callback);
-    var location2 = makeLocation(275, 300, this.active == 1, callback);
-    var location3 = makeLocation(525, 300, this.active == 2, callback);
-    var location4 = makeLocation(775, 300, this.active == 3, callback);
-
     this.displayRoot.addChild(line);
-    this.displayRoot.addChild(location1);
-    this.displayRoot.addChild(location2);
-    this.displayRoot.addChild(location3);
-    this.displayRoot.addChild(location4);
-    this.displayRoot.addChild(highlight);
+
+    this.locations.forEach(function (location, ix) {
+
+        if (ix == 0) {
+            line.moveTo(location.position.x, location.position.y);
+        } else {
+            line.lineTo(location.position.x, location.position.y);
+        }
+
+        var container = new DisplayObjectContainer();
+
+        var gfx = new Graphics();
+        if (location == this.currentLocation) {
+            gfx.beginFill(0x008800);
+        } else {
+            gfx.beginFill(0x888888);
+        }
+
+        gfx.drawRect(-10, -10, 20, 20);
+
+        gfx.interactive = true;
+        gfx.buttonMode = true;
+        gfx.mouseover = function() {
+            this.tint = 0x999999;
+        };
+        gfx.mouseout = function() {
+            this.tint = 0xFFFFFF;
+        };
+        gfx.click = function() {
+            if(location.isConnectedTo(this.currentLocation)) {
+                this.emit('start-travel', this.currentLocation, location);
+            }
+        }.bind(this);
+
+        container.addChild(gfx);
+
+        var text = new BitmapText(location.name, {font: 'basis33'});
+        container.addChild(text);
+        text.position.set(0, 20);
+
+        this.displayRoot.addChild(container);
+
+        container.position.set(location.position.x, location.position.y);
+
+    }, this);
+};
+
+MapState.prototype.enter = function () {
+
+    this.draw();
+
 };
 
 MapState.prototype.hasReachedDestination = function () {
     return this.active === this.destination;
 };
 
-MapState.prototype.update = function (delta) {};
-
-function makeLocation(x, y, enabled, callback) {
-
-    var gfx = new Graphics();
-
-    if (enabled) {
-        gfx.beginFill(0x880088);
-        gfx.interactive = true;
-        gfx.click = callback;
-    } else {
-        gfx.beginFill(0x222222);
-    }
-
-    gfx.drawRect(-10, -10, 20, 20);
-    gfx.position.set(x, y);
-
-    return gfx;
+MapState.prototype.update = function (delta) {
 };
 
 

@@ -12,11 +12,27 @@ var Graphics = require('lib/pixi/pixi').Graphics;
 var TravelState = function(game) {
 
     State.call(this, game);
+
+    this.origin = null;
+    this.destination = null;
+    this.arrived = false;
+    this.progress = 0;
 };
 
 TravelState.prototype = Object.create(State.prototype);
 
-TravelState.prototype.init = function() {
+TravelState.prototype.setLocations = function(origin, destination) {
+    this.origin = origin;
+    this.destination= destination;
+    this.arrived = false;
+    this.progress = 0;
+};
+
+TravelState.prototype.enter = function() {
+
+};
+
+TravelState.prototype.create = function() {
 
     var gfx = new Graphics();
     gfx.beginFill(0x000000);
@@ -24,7 +40,7 @@ TravelState.prototype.init = function() {
 
     gfx.position.set(0, 100);
 
-    this.test = gfx;
+    this.marker = gfx;
 
     this.displayRoot.addChild(gfx);
 };
@@ -33,13 +49,16 @@ TravelState.prototype.update = function(delta) {
 
     var speed = 3;
     var max = 790;
-    this.test.position.x += speed;
 
-    if(this.test.position.x >= max) {
+    if(!this.arrived) {
 
-        // todo emit event
-        this.game.arriveAtLocation();
+        this.progress += speed;
+        this.marker.position.x = this.progress;
 
+        if (this.progress >= max) {
+            this.arrived = true;
+            this.emit('arrived', this.destination);
+        }
     }
 };
 

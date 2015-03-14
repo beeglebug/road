@@ -3,9 +3,11 @@
 
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
 var AssetLoader = require('src/AssetLoader');
+var EventEmitterMixin = require('src/mixins/EventEmitterMixin');
 
 /**
  * @param {Game} game
+ * @mixes EventEmitterMixin
  * @constructor
  */
 var State = function(game) {
@@ -36,8 +38,16 @@ var State = function(game) {
      */
     this._loaded = false;
 
+    /**
+     * @type {boolean}
+     * @private
+     */
+    this._created = false;
+
     this.loader.addEventListener('onComplete', this._assetsLoaded.bind(this));
 };
+
+EventEmitterMixin.call(State.prototype);
 
 /**
  * @private
@@ -46,15 +56,7 @@ State.prototype._assetsLoaded = function() {
 
     this._loaded = true;
 
-    this.init();
-};
-
-/**
- * clean up the state before leaving
- */
-State.prototype.shutdown = function() {
-
-    this.displayRoot.removeChildren();
+    this.boot();
 };
 
 /**
@@ -64,21 +66,29 @@ State.prototype.boot = function() {
 
     if(!this._loaded) {
 
-        this.load();
+        this.preload();
 
         this.loader.load();
 
+    } else if(!this._created) {
+
+        this.create();
+
+        this._created = true;
+
+        this.enter();
+
     } else {
 
-        this.init();
+        this.enter();
 
     }
 };
 
-State.prototype.load = function() {};
-
-State.prototype.init = function() {};
-
+State.prototype.preload = function() {};
+State.prototype.create = function() {};
 State.prototype.update = function(delta) {};
+State.prototype.enter = function() {};
+State.prototype.exit = function() {};
 
 module.exports = State;
