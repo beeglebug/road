@@ -91,14 +91,6 @@ MapState.prototype.draw = function () {
 MapState.prototype.enter = function () {
 
     this.draw();
-
-};
-
-MapState.prototype.hasReachedDestination = function () {
-    return this.active === this.destination;
-};
-
-MapState.prototype.update = function (delta) {
 };
 
 
