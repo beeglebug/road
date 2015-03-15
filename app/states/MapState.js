@@ -23,9 +23,9 @@ var MapState = function (game) {
     var l5 = new MapLocation(700, 300, 'location 5');
 
     l1.connections = [l2];
-    l2.connections = [l3,l4];
-    l3.connections = [l5];
-    l4.connections = [l5];
+    l2.connections = [l1,l3,l4];
+    l3.connections = [l2,l5];
+    l4.connections = [l2,l5];
 
     this.locations = [l1,l2,l3,l4,l5];
 
