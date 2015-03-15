@@ -63,7 +63,7 @@ TravelState.prototype.create = function() {
 
 TravelState.prototype.update = function(delta) {
 
-    var speed = 3;
+    var speed = 10;
 
     if(!this.arrived) {
 
