@@ -3,6 +3,7 @@
 
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
+var BitmapText = require('lib/pixi/pixi').BitmapText;
 
 /**
  * @extends State
@@ -17,45 +18,59 @@ var TravelState = function(game) {
     this.destination = null;
     this.arrived = false;
     this.progress = 0;
+    this.max = 780;
 };
 
 TravelState.prototype = Object.create(State.prototype);
 
 TravelState.prototype.setLocations = function(origin, destination) {
     this.origin = origin;
-    this.destination= destination;
-    this.arrived = false;
-    this.progress = 0;
+    this.destination = destination;
 };
 
 TravelState.prototype.enter = function() {
-
+    this.arrived = false;
+    this.progress = 0;
+    this.originLabel.setText(this.origin.name);
+    this.destinationLabel.setText(this.destination.name);
+    // right align
+    this.destinationLabel.position.x = 800 - this.destinationLabel.textWidth;
 };
 
 TravelState.prototype.create = function() {
 
-    var gfx = new Graphics();
-    gfx.beginFill(0x000000);
-    gfx.drawRect(0, 0, 10, 10);
+    this.originLabel = new BitmapText('origin', {font: 'basis33'});
+    this.originLabel.position.set(0, 80);
 
-    gfx.position.set(0, 100);
+    this.destinationLabel = new BitmapText('destination', {font: 'basis33', align:'right'});
+    this.destinationLabel.position.set(800, 80);
 
-    this.marker = gfx;
+    var line = new Graphics();
+    line.lineStyle(1, 0xAAAAAA);
+    line.moveTo(0, 110);
+    line.lineTo(800, 110);
 
-    this.displayRoot.addChild(gfx);
+    this.marker = new Graphics();
+    this.marker.beginFill(0x444400);
+    this.marker.drawRect(0, 0, 20, 10);
+    this.marker.position.set(this.progress, 100);
+
+    this.displayRoot.addChild(this.originLabel);
+    this.displayRoot.addChild(this.destinationLabel);
+    this.displayRoot.addChild(line);
+    this.displayRoot.addChild(this.marker);
 };
 
 TravelState.prototype.update = function(delta) {
 
     var speed = 3;
-    var max = 790;
 
     if(!this.arrived) {
 
         this.progress += speed;
         this.marker.position.x = this.progress;
 
-        if (this.progress >= max) {
+        if (this.progress >= this.max) {
             this.arrived = true;
             this.emit('arrived', this.destination);
         }
