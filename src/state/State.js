@@ -85,6 +85,12 @@ State.prototype.boot = function() {
     }
 };
 
+State.prototype.reset = function() {
+
+    this._created = false;
+
+};
+
 State.prototype.preload = function() {};
 State.prototype.create = function() {};
 State.prototype.update = function(delta) {};

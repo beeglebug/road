@@ -15,6 +15,11 @@ var BitmapText = require('lib/pixi/pixi').BitmapText;
 var MapState = function (game) {
 
     State.call(this, game);
+};
+
+MapState.prototype = Object.create(State.prototype);
+
+MapState.prototype.create = function() {
 
     var l1 = new MapLocation(100, 300, 'location 1');
     var l2 = new MapLocation(300, 250, 'location 2');
@@ -32,8 +37,6 @@ var MapState = function (game) {
     this.currentLocation = l1;
     this.targetLocation = l5;
 };
-
-MapState.prototype = Object.create(State.prototype);
 
 MapState.prototype.draw = function () {
 

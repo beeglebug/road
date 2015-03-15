@@ -29,6 +29,8 @@ var RoadGame = function(width, height, selector) {
 
     mainMenuState.addEventListener('start-game', function() {
 
+        mapState.reset();
+
         this.stateManager.setState('map');
 
     }.bind(this));
