@@ -19,13 +19,20 @@ var RoadGame = function(width, height, selector) {
 
     Game.call(this, width, height, selector);
 
-    this.stateManager.addState('main-menu', new MainMenuState(this));
+    var mainMenuState = this.stateManager.addState('main-menu', new MainMenuState(this));
     var mapState = this.stateManager.addState('map', new MapState(this));
     var travelState = this.stateManager.addState('travel', new TravelState(this));
     var locationState = this.stateManager.addState('location', new LocationState(this));
     this.stateManager.addState('complete', new CompleteState(this));
 
     // tie the states together
+
+    mainMenuState.addEventListener('start-game', function() {
+
+        this.stateManager.setState('map');
+
+    }.bind(this));
+
     mapState.addEventListener('start-travel', function(origin, destination) {
 
         travelState.setLocations(origin, destination);

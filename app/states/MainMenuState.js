@@ -30,7 +30,7 @@ MainMenuState.prototype.create = function() {
 
     this.displayRoot.click = function() {
 
-        this.game.stateManager.setState('map');
+        this.emit('start-game');
 
     }.bind(this);
 
