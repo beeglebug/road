@@ -30,6 +30,7 @@ var MapState = function (game) {
     this.locations = [l1,l2,l3,l4,l5];
 
     this.currentLocation = l1;
+    this.targetLocation = l5;
 };
 
 MapState.prototype = Object.create(State.prototype);
