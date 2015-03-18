@@ -27,7 +27,7 @@ var RoadGame = function(width, height, selector) {
 
     // tie the states together
 
-    mainMenuState.addEventListener('start-game', function() {
+    mainMenuState.addListener('start-game', function() {
 
         mapState.reset();
 
@@ -35,7 +35,7 @@ var RoadGame = function(width, height, selector) {
 
     }.bind(this));
 
-    mapState.addEventListener('start-travel', function(origin, destination) {
+    mapState.addListener('start-travel', function(origin, destination) {
 
         travelState.setLocations(origin, destination);
 
@@ -43,7 +43,7 @@ var RoadGame = function(width, height, selector) {
 
     }.bind(this));
 
-    travelState.addEventListener('arrived', function(location) {
+    travelState.addListener('arrived', function(location) {
 
         mapState.currentLocation = location;
         locationState.location = location;

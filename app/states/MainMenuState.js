@@ -4,6 +4,7 @@
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Rectangle = require('lib/pixi/pixi').Rectangle;
+var util = require('util');
 
 /**
  * @extends State
@@ -15,7 +16,7 @@ var MainMenuState = function(game) {
     State.call(this, game);
 };
 
-MainMenuState.prototype = Object.create(State.prototype);
+util.inherits(MainMenuState, State);
 
 MainMenuState.prototype.preload = function() {
 

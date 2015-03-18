@@ -1,16 +1,19 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
 var AssetLoader = require('src/AssetLoader');
-var EventEmitterMixin = require('src/mixins/EventEmitterMixin');
+var EventEmitter = require('events').EventEmitter;
 
 /**
  * @param {Game} game
- * @mixes EventEmitterMixin
+ * @inherits EventEmitter
  * @constructor
  */
 var State = function(game) {
+
+    EventEmitter.call(this);
 
     /**
      * @type {Game}
@@ -47,7 +50,7 @@ var State = function(game) {
     this.loader.addEventListener('onComplete', this._assetsLoaded.bind(this));
 };
 
-EventEmitterMixin.call(State.prototype);
+util.inherits(State, EventEmitter);
 
 /**
  * @private
