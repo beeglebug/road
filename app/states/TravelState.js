@@ -29,10 +29,12 @@ TravelState.prototype.setLocations = function(origin, destination) {
 };
 
 TravelState.prototype.enter = function() {
+
     this.arrived = false;
     this.progress = 0;
     this.originLabel.setText(this.origin.name);
     this.destinationLabel.setText(this.destination.name);
+
     // right align
     this.destinationLabel.position.x = 800 - this.destinationLabel.textWidth;
 };

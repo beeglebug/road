@@ -3,7 +3,7 @@
 
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
-var Rectangle = require('lib/pixi/pixi').Rectangle;
+var Button = require('src/Button');
 
 /**
  * @extends State
@@ -21,29 +21,33 @@ LocationState.prototype = Object.create(State.prototype);
 
 LocationState.prototype.create = function() {
 
-    this.displayRoot.interactive = true;
-    this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
+    this.locationLabel = new BitmapText('', { font: 'basis33' });
+    this.locationLabel.position.set(400, 300);
 
-    this.displayRoot.click = function() {
+    var leaveButton = new Button('leave', function() {
 
         this.emit('leave');
 
-    }.bind(this);
+    }.bind(this), 100, 50);
 
+    leaveButton.position.set(300, 500);
+
+    var talkButton = new Button('talk', function() {
+
+        this.emit('talk');
+
+    }.bind(this), 100, 50);
+
+    talkButton.position.set(500, 500);
+
+    this.displayRoot.addChild(this.locationLabel);
+    this.displayRoot.addChild(leaveButton);
+    this.displayRoot.addChild(talkButton);
 };
 
 LocationState.prototype.enter = function() {
 
-    this.displayRoot.removeChildren();
-
-    var text1 = new BitmapText('arrived at ' + this.location.name, { font: 'basis33' });
-    text1.position.set(400, 300);
-    this.displayRoot.addChild(text1);
-
-    var text2 = new BitmapText('click to go to map', { font: 'basis33' });
-    text2.position.set(400, 350);
-    this.displayRoot.addChild(text2);
-
+    this.locationLabel.setText(this.location.name);
 };
 
 module.exports = LocationState;
