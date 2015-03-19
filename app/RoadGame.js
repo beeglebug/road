@@ -60,6 +60,13 @@ var RoadGame = function(width, height, selector) {
 
     }.bind(this));
 
+    locationState.addListener('leave', function() {
+
+        this.stateManager.setState('map');
+
+    }.bind(this));
+
+
     this.stateManager.setState('main-menu');
 };
 
