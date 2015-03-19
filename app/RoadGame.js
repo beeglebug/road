@@ -6,6 +6,7 @@ var MainMenuState = require('app/states/MainMenuState');
 var MapState = require('app/states/MapState');
 var TravelState = require('app/states/TravelState');
 var LocationState = require('app/states/LocationState');
+var ConversationState = require('app/states/ConversationState');
 var CompleteState = require('app/states/CompleteState');
 
 /**
@@ -23,6 +24,8 @@ var RoadGame = function(width, height, selector) {
     var mapState = this.stateManager.addState('map', new MapState(this));
     var travelState = this.stateManager.addState('travel', new TravelState(this));
     var locationState = this.stateManager.addState('location', new LocationState(this));
+    var conversationState = this.stateManager.addState('conversation', new ConversationState(this));
+
     this.stateManager.addState('complete', new CompleteState(this));
 
     // tie the states together
@@ -66,6 +69,18 @@ var RoadGame = function(width, height, selector) {
 
     }.bind(this));
 
+    locationState.addListener('talk', function() {
+
+        this.stateManager.setState('conversation');
+
+    }.bind(this));
+
+
+    conversationState.addListener('finish', function() {
+
+        this.stateManager.setState('location');
+
+    }.bind(this));
 
     this.stateManager.setState('main-menu');
 };
