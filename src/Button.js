@@ -26,7 +26,7 @@ var Button = function(text, callback, width, height) {
     height = height || this.text.textHeight + (margin * 2);
 
     this.background = new Graphics();
-    this.background.beginFill(0x555555);
+    this.background.beginFill(0xCCCCCC);
     this.background.drawRect(0, 0, width, height);
 
     this.text.position.set(margin, margin);

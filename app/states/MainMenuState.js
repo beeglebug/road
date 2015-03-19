@@ -29,6 +29,7 @@ MainMenuState.prototype.create = function() {
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
 
+    // @todo replace with button
     this.displayRoot.click = function() {
 
         this.emit('start-game');

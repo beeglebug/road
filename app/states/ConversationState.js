@@ -4,7 +4,7 @@
 var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
-var Rectangle = require('lib/pixi/pixi').Rectangle;
+var Button = require('src/Button');
 
 /**
  * @extends State
@@ -16,32 +16,28 @@ var ConversationState = function(game) {
     State.call(this, game);
 };
 
-ConversationState.prototype = Object.create(State.prototype);
+util.inherits(ConversationState, State);
 
 ConversationState.prototype.create = function() {
 
-    this.displayRoot.interactive = true;
-    this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
+    this.talkingToLabel = new BitmapText('talking to someone', { font: 'basis33' });
+    this.talkingToLabel.position.set(400, 300);
 
-    this.displayRoot.click = function() {
+    var talkButton = new Button('finish', function() {
 
-        this.emit('finished');
+        this.emit('finish');
 
-    }.bind(this);
+    }.bind(this), 100, 50);
 
+    talkButton.position.set(400, 500);
+
+    this.displayRoot.addChild(talkButton);
+    this.displayRoot.addChild(this.talkingToLabel);
 };
 
 ConversationState.prototype.enter = function() {
 
-    this.displayRoot.removeChildren();
 
-    var text1 = new BitmapText('talking', { font: 'basis33' });
-    text1.position.set(400, 300);
-    this.displayRoot.addChild(text1);
-
-    var text2 = new BitmapText('click to finish', { font: 'basis33' });
-    text2.position.set(400, 350);
-    this.displayRoot.addChild(text2);
 
 };
 
