@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
 var BitmapText = require('lib/pixi/pixi').BitmapText;
@@ -21,7 +22,7 @@ var TravelState = function(game) {
     this.max = 780;
 };
 
-TravelState.prototype = Object.create(State.prototype);
+util.inherits(TravelState, State);
 
 TravelState.prototype.setLocations = function(origin, destination) {
     this.origin = origin;

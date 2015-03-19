@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Rectangle = require('lib/pixi/pixi').Rectangle;
@@ -15,7 +16,7 @@ var CompleteState = function(game) {
     State.call(this, game);
 };
 
-CompleteState.prototype = Object.create(State.prototype);
+util.inherits(CompleteState, State);
 
 CompleteState.prototype.create = function() {
 

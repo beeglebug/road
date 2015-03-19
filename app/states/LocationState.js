@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Button = require('src/Button');
@@ -17,7 +18,7 @@ var LocationState = function(game) {
     this.location = null;
 };
 
-LocationState.prototype = Object.create(State.prototype);
+util.inherits(LocationState, State);
 
 LocationState.prototype.create = function() {
 

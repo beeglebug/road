@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var State = require('src/state/State');
 var Graphics = require('lib/pixi/pixi').Graphics;
 var MapLocation = require('app/map/MapLocation');
@@ -17,7 +18,7 @@ var MapState = function (game) {
     State.call(this, game);
 };
 
-MapState.prototype = Object.create(State.prototype);
+util.inherits(MapState, State);
 
 MapState.prototype.create = function() {
 
