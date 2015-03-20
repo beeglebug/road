@@ -9,6 +9,7 @@ var TravelState = require('app/states/TravelState');
 var LocationState = require('app/states/LocationState');
 var ConversationState = require('app/states/ConversationState');
 var CompleteState = require('app/states/CompleteState');
+var DialogueParser = require('src/dialogue/DialogueParser');
 
 /**
  * @extends Game
@@ -22,6 +23,11 @@ var RoadGame = function(width, height, selector) {
     Game.call(this, width, height, selector);
 
     this.loader.add('fonts/basis33.fnt');
+
+    // test dialog parsing
+    var data = require('app/data/dialogue/test');
+    var dialogue = DialogueParser.parse(data);
+    console.log(dialogue);
 };
 
 util.inherits(RoadGame, Game);
