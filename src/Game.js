@@ -4,6 +4,7 @@
 var Stage = require('lib/pixi/pixi').Stage;
 var WebGLRenderer = require('lib/pixi/pixi').WebGLRenderer;
 var StateManager = require('src/state/StateManager');
+var AssetLoader = require('src/AssetLoader');
 
 var Game = function(width, height, selector) {
 
@@ -22,6 +23,13 @@ var Game = function(width, height, selector) {
      */
     this.stateManager = new StateManager();
 
+    /**
+     * @type {AssetLoader}
+     */
+    this.loader = new AssetLoader();
+
+    this.loader.addEventListener('onComplete', this._assetsLoaded.bind(this));
+
     this.stage.addChild(this.stateManager.displayRoot);
 
     this.addToDom(selector);
@@ -29,6 +37,17 @@ var Game = function(width, height, selector) {
     // bind loop for raf
     this.loop = this._loop.bind(this);
 };
+
+/**
+ * @private
+ */
+Game.prototype._assetsLoaded = function() {
+
+    this.boot();
+
+};
+
+Game.prototype.boot = function() { };
 
 Game.prototype.addToDom = function(selector) {
 
@@ -44,6 +63,8 @@ Game.prototype.addToDom = function(selector) {
 };
 
 Game.prototype.start = function() {
+
+    this.loader.load();
 
     this.loopId = requestAnimationFrame(this.loop);
 };

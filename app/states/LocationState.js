@@ -16,11 +16,6 @@ var LocationState = function(game) {
     State.call(this, game);
 
     this.location = null;
-};
-
-util.inherits(LocationState, State);
-
-LocationState.prototype.create = function() {
 
     this.locationLabel = new BitmapText('', { font: 'basis33' });
     this.locationLabel.position.set(400, 300);
@@ -44,7 +39,10 @@ LocationState.prototype.create = function() {
     this.displayRoot.addChild(this.locationLabel);
     this.displayRoot.addChild(leaveButton);
     this.displayRoot.addChild(talkButton);
+
 };
+
+util.inherits(LocationState, State);
 
 LocationState.prototype.enter = function() {
 

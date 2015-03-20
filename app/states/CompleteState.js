@@ -14,11 +14,6 @@ var Rectangle = require('lib/pixi/pixi').Rectangle;
 var CompleteState = function(game) {
 
     State.call(this, game);
-};
-
-util.inherits(CompleteState, State);
-
-CompleteState.prototype.create = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
@@ -38,5 +33,8 @@ CompleteState.prototype.create = function() {
     text2.position.set(400, 350);
     this.displayRoot.addChild(text2);
 };
+
+util.inherits(CompleteState, State);
+
 
 module.exports = CompleteState;

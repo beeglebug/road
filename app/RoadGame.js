@@ -1,6 +1,7 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var Game = require('src/Game');
 var MainMenuState = require('app/states/MainMenuState');
 var MapState = require('app/states/MapState');
@@ -20,6 +21,13 @@ var RoadGame = function(width, height, selector) {
 
     Game.call(this, width, height, selector);
 
+    this.loader.add('fonts/basis33.fnt');
+};
+
+util.inherits(RoadGame, Game);
+
+RoadGame.prototype.boot = function() {
+
     var mainMenuState = this.stateManager.addState('main-menu', new MainMenuState(this));
     var mapState = this.stateManager.addState('map', new MapState(this));
     var travelState = this.stateManager.addState('travel', new TravelState(this));
@@ -31,8 +39,6 @@ var RoadGame = function(width, height, selector) {
     // tie the states together
 
     mainMenuState.addListener('start-game', function() {
-
-        mapState.reset();
 
         this.stateManager.setState('map');
 
@@ -51,7 +57,7 @@ var RoadGame = function(width, height, selector) {
         mapState.currentLocation = location;
         locationState.location = location;
 
-        if(location == mapState.targetLocation) {
+        if(location === mapState.targetLocation) {
 
             this.stateManager.setState('complete');
 
@@ -84,10 +90,6 @@ var RoadGame = function(width, height, selector) {
 
     this.stateManager.setState('main-menu');
 };
-
-RoadGame.prototype = Object.create(Game.prototype);
-
-
 
 
 module.exports = RoadGame;

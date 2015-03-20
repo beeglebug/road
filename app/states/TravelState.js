@@ -20,27 +20,6 @@ var TravelState = function(game) {
     this.arrived = false;
     this.progress = 0;
     this.max = 780;
-};
-
-util.inherits(TravelState, State);
-
-TravelState.prototype.setLocations = function(origin, destination) {
-    this.origin = origin;
-    this.destination = destination;
-};
-
-TravelState.prototype.enter = function() {
-
-    this.arrived = false;
-    this.progress = 0;
-    this.originLabel.setText(this.origin.name);
-    this.destinationLabel.setText(this.destination.name);
-
-    // right align
-    this.destinationLabel.position.x = 800 - this.destinationLabel.textWidth;
-};
-
-TravelState.prototype.create = function() {
 
     this.originLabel = new BitmapText('origin', {font: 'basis33'});
     this.originLabel.position.set(0, 80);
@@ -62,6 +41,25 @@ TravelState.prototype.create = function() {
     this.displayRoot.addChild(this.destinationLabel);
     this.displayRoot.addChild(line);
     this.displayRoot.addChild(this.marker);
+
+};
+
+util.inherits(TravelState, State);
+
+TravelState.prototype.setLocations = function(origin, destination) {
+    this.origin = origin;
+    this.destination = destination;
+};
+
+TravelState.prototype.enter = function() {
+
+    this.arrived = false;
+    this.progress = 0;
+    this.originLabel.setText(this.origin.name);
+    this.destinationLabel.setText(this.destination.name);
+
+    // right align
+    this.destinationLabel.position.x = 800 - this.destinationLabel.textWidth;
 };
 
 TravelState.prototype.update = function(delta) {

@@ -14,11 +14,6 @@ var Button = require('src/Button');
 var ConversationState = function(game) {
 
     State.call(this, game);
-};
-
-util.inherits(ConversationState, State);
-
-ConversationState.prototype.create = function() {
 
     this.talkingToLabel = new BitmapText('talking to someone', { font: 'basis33' });
     this.talkingToLabel.position.set(400, 300);
@@ -35,10 +30,6 @@ ConversationState.prototype.create = function() {
     this.displayRoot.addChild(this.talkingToLabel);
 };
 
-ConversationState.prototype.enter = function() {
-
-
-
-};
+util.inherits(ConversationState, State);
 
 module.exports = ConversationState;

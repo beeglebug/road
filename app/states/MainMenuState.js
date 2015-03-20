@@ -14,17 +14,6 @@ var Rectangle = require('lib/pixi/pixi').Rectangle;
 var MainMenuState = function(game) {
 
     State.call(this, game);
-};
-
-util.inherits(MainMenuState, State);
-
-MainMenuState.prototype.preload = function() {
-
-    this.loader.add('fonts/basis33.fnt');
-
-};
-
-MainMenuState.prototype.create = function() {
 
     this.displayRoot.interactive = true;
     this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
@@ -42,5 +31,8 @@ MainMenuState.prototype.create = function() {
 
     this.displayRoot.addChild(text);
 };
+
+util.inherits(MainMenuState, State);
+
 
 module.exports = MainMenuState;
