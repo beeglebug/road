@@ -5,6 +5,7 @@ var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Rectangle = require('lib/pixi/pixi').Rectangle;
+var Button = require('src/Button');
 
 /**
  * @extends State
@@ -15,21 +16,15 @@ var MainMenuState = function(game) {
 
     State.call(this, game);
 
-    this.displayRoot.interactive = true;
-    this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
-
-    // @todo replace with button
-    this.displayRoot.click = function() {
+    var talkButton = new Button('start', function() {
 
         this.emit('start-game');
 
-    }.bind(this);
+    }.bind(this), 100, 50);
 
-    var text = new BitmapText('click to start', { font: 'basis33' });
+    talkButton.position.set(300, 300);
 
-    text.position.set(400,300);
-
-    this.displayRoot.addChild(text);
+    this.displayRoot.addChild(talkButton);
 };
 
 util.inherits(MainMenuState, State);
