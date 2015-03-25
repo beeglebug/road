@@ -15,7 +15,9 @@ var ConversationState = function(game) {
 
     State.call(this, game);
 
-    this.talkingToLabel = new BitmapText('talking to someone', { font: 'basis33' });
+    this.name = 'conversation';
+
+    this.talkingToLabel = new BitmapText('talking to someone', { font: 'basis33-black' });
     this.talkingToLabel.position.set(400, 300);
 
     var talkButton = new Button('finish', function() {

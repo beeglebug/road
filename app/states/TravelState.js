@@ -15,16 +15,18 @@ var TravelState = function(game) {
 
     State.call(this, game);
 
+    this.name = 'travel';
+
     this.origin = null;
     this.destination = null;
     this.arrived = false;
     this.progress = 0;
     this.max = 780;
 
-    this.originLabel = new BitmapText('origin', {font: 'basis33'});
+    this.originLabel = new BitmapText('origin', { font: 'basis33-black' });
     this.originLabel.position.set(0, 80);
 
-    this.destinationLabel = new BitmapText('destination', {font: 'basis33', align:'right'});
+    this.destinationLabel = new BitmapText('destination', { font: 'basis33-black', align:'right' });
     this.destinationLabel.position.set(800, 80);
 
     var line = new Graphics();

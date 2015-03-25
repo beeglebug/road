@@ -10,6 +10,7 @@ var LocationState = require('app/states/LocationState');
 var ConversationState = require('app/states/ConversationState');
 var CompleteState = require('app/states/CompleteState');
 var DialogueParser = require('src/dialogue/DialogueParser');
+var Debug = require('src/Debug');
 
 /**
  * @extends Game
@@ -22,17 +23,29 @@ var RoadGame = function(width, height, selector) {
 
     Game.call(this, width, height, selector);
 
-    this.loader.add('fonts/basis33.fnt');
+    this.loader.add([
+        'fonts/basis33-white.fnt',
+        'fonts/basis33-black.fnt'
+    ]);
 
     // test dialog parsing
     var data = require('app/data/dialogue/test');
     var dialogue = DialogueParser.parse(data);
-    //console.log(dialogue);
+    console.log(dialogue);
 };
 
 util.inherits(RoadGame, Game);
 
 RoadGame.prototype.boot = function() {
+
+    var debug = new Debug(this);
+    this.stage.addChild(debug);
+
+    window.onkeyup = function(e) {
+        if (e.keyCode == 223) {
+            debug.toggle();
+        }
+    };
 
     var mainMenuState = this.stateManager.addState('main-menu', new MainMenuState(this));
     var mapState = this.stateManager.addState('map', new MapState(this));

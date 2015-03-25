@@ -16,6 +16,8 @@ var CompleteState = function(game) {
 
     State.call(this, game);
 
+    this.name = 'complete';
+
     var talkButton = new Button('restart', function() {
 
         this.emit('restart');
@@ -25,7 +27,7 @@ var CompleteState = function(game) {
     talkButton.position.set(300, 400);
     this.displayRoot.addChild(talkButton);
 
-    var text1 = new BitmapText('finished', { font: 'basis33' });
+    var text1 = new BitmapText('finished', { font: 'basis33-black' });
     text1.position.set(300, 300);
     this.displayRoot.addChild(text1);
 

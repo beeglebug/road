@@ -20,7 +20,7 @@ var Button = function(text, callback, width, height) {
 
     this.buttonMode = true;
 
-    this.text = new BitmapText(text, { font: 'basis33' });
+    this.text = new BitmapText(text, { font: 'basis33-black' });
 
     var margin = 10;
 

@@ -16,6 +16,8 @@ var MainMenuState = function(game) {
 
     State.call(this, game);
 
+    this.name = 'main menu';
+
     var talkButton = new Button('start', function() {
 
         this.emit('start-game');

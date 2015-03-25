@@ -17,6 +17,8 @@ var MapState = function (game) {
 
     State.call(this, game);
 
+    this.name = 'map';
+
     this.reset();
 };
 
@@ -83,7 +85,7 @@ MapState.prototype.draw = function () {
 
         container.addChild(gfx);
 
-        var text = new BitmapText(location.name, {font: 'basis33'});
+        var text = new BitmapText(location.name, {font: 'basis33-black'});
         container.addChild(text);
         text.position.set(0, 20);
 

@@ -38,9 +38,13 @@ AssetLoader.prototype.load = function() {
  * Add an asset to the loader
  * @param {String} asset url of asset to add
  */
-AssetLoader.prototype.add = function(asset) {
+AssetLoader.prototype.add = function(assets) {
 
-    this.assetURLs.push(asset);
+    if(!Array.isArray(assets)) {
+        assets = [assets];
+    }
+
+    this.assetURLs = this.assetURLs.concat(assets);
 };
 
 module.exports = AssetLoader;

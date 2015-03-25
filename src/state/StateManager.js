@@ -1,13 +1,17 @@
 /* jshint node: true */
 'use strict';
 
+var util = require('util');
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
+var EventEmitter = require('events').EventEmitter;
 
 /**
  * StateManager
  * @constructor
  */
 var StateManager = function() {
+
+    EventEmitter.call(this);
 
     /**
      * @type {Object.<string, State>}
@@ -24,6 +28,8 @@ var StateManager = function() {
      */
     this.displayRoot = new DisplayObjectContainer();
 };
+
+util.inherits(StateManager, EventEmitter);
 
 /**
  * @param {String} key A unique identifier for the state
@@ -64,6 +70,8 @@ StateManager.prototype.setState = function(key) {
     this.currentState = state;
 
     this.currentState.enter();
+
+    this.emit('state-changed', state);
 
     this.displayRoot.removeChildren();
 

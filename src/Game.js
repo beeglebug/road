@@ -8,6 +8,10 @@ var AssetLoader = require('src/AssetLoader');
 
 var Game = function(width, height, selector) {
 
+    this.width = width;
+
+    this.height = height;
+
     /**
      * @type {Stage}
      */

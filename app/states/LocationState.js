@@ -15,9 +15,11 @@ var LocationState = function(game) {
 
     State.call(this, game);
 
+    this.name = 'location';
+
     this.location = null;
 
-    this.locationLabel = new BitmapText('', { font: 'basis33' });
+    this.locationLabel = new BitmapText('', { font: 'basis33-black' });
     this.locationLabel.position.set(400, 300);
 
     var leaveButton = new Button('leave', function() {
