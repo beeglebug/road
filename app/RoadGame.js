@@ -39,8 +39,7 @@ RoadGame.prototype.boot = function() {
     var travelState = this.stateManager.addState('travel', new TravelState(this));
     var locationState = this.stateManager.addState('location', new LocationState(this));
     var conversationState = this.stateManager.addState('conversation', new ConversationState(this));
-
-    this.stateManager.addState('complete', new CompleteState(this));
+    var completeState = this.stateManager.addState('complete', new CompleteState(this));
 
     // tie the states together
 
@@ -91,6 +90,12 @@ RoadGame.prototype.boot = function() {
     conversationState.addListener('finish', function() {
 
         this.stateManager.setState('location');
+
+    }.bind(this));
+
+    completeState.addListener('restart', function() {
+
+        this.stateManager.setState('main-menu');
 
     }.bind(this));
 

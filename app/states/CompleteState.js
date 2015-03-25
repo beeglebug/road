@@ -5,6 +5,7 @@ var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Rectangle = require('lib/pixi/pixi').Rectangle;
+var Button = require('src/Button');
 
 /**
  * @extends State
@@ -15,23 +16,19 @@ var CompleteState = function(game) {
 
     State.call(this, game);
 
-    this.displayRoot.interactive = true;
-    this.displayRoot.hitArea = new Rectangle(0, 0, 800, 600);
+    var talkButton = new Button('restart', function() {
 
-    // @todo replace with button
-    this.displayRoot.click = function() {
+        this.emit('restart');
 
-        this.game.stateManager.setState('main-menu');
+    }.bind(this), 100, 50);
 
-    }.bind(this);
+    talkButton.position.set(300, 400);
+    this.displayRoot.addChild(talkButton);
 
     var text1 = new BitmapText('finished', { font: 'basis33' });
-    text1.position.set(400, 300);
+    text1.position.set(300, 300);
     this.displayRoot.addChild(text1);
 
-    var text2 = new BitmapText('click to return to menu', { font: 'basis33' });
-    text2.position.set(400, 350);
-    this.displayRoot.addChild(text2);
 };
 
 util.inherits(CompleteState, State);
