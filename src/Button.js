@@ -18,6 +18,8 @@ var Button = function(text, callback, width, height) {
 
     DisplayObjectContainer.call(this);
 
+    this.buttonMode = true;
+
     this.text = new BitmapText(text, { font: 'basis33' });
 
     var margin = 10;
@@ -52,19 +54,19 @@ Button.prototype.onClick = function(e) {
 };
 
 Button.prototype.onMouseOver = function(e) {
-    this.background.alpha = 0.7;
+    this.background.tint = 0xEEEEEE;
 };
 
 Button.prototype.onMouseOut = function(e) {
-    this.background.alpha = 1;
+    this.background.tint = 0xFFFFFF;
 };
 
 Button.prototype.onMouseDown = function(e) {
-    this.background.alpha = 0.8;
+    this.background.tint = 0xDDDDDD;
 };
 
 Button.prototype.onMouseUp = function(e) {
-    this.background.alpha = 0.7;
+    this.background.tint = 0xEEEEEE;
 };
 
 module.exports = Button;
