@@ -27,7 +27,7 @@ var RoadGame = function(width, height, selector) {
     // test dialog parsing
     var data = require('app/data/dialogue/test');
     var dialogue = DialogueParser.parse(data);
-    console.log(dialogue);
+    //console.log(dialogue);
 };
 
 util.inherits(RoadGame, Game);
@@ -94,6 +94,8 @@ RoadGame.prototype.boot = function() {
     }.bind(this));
 
     completeState.addListener('restart', function() {
+
+        mapState.reset();
 
         this.stateManager.setState('main-menu');
 

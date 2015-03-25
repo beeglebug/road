@@ -17,6 +17,13 @@ var MapState = function (game) {
 
     State.call(this, game);
 
+    this.reset();
+};
+
+util.inherits(MapState, State);
+
+MapState.prototype.reset = function() {
+
     var l1 = new MapLocation(100, 300, 'location 1');
     var l2 = new MapLocation(300, 250, 'location 2');
     var l3 = new MapLocation(500, 180, 'location 3');
@@ -33,9 +40,6 @@ var MapState = function (game) {
     this.currentLocation = l1;
     this.targetLocation = l5;
 };
-
-util.inherits(MapState, State);
-
 
 MapState.prototype.draw = function () {
 
