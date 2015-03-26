@@ -49,6 +49,10 @@ var Button = function(text, callback, width, height) {
 
 util.inherits(Button, DisplayObjectContainer);
 
+Button.prototype.setText = function(text) {
+    this.text.setText(text);
+};
+
 Button.prototype.onClick = function(e) {
     this.callback();
 };

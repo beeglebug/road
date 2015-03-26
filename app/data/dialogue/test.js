@@ -1,7 +1,24 @@
 module.exports = {
-    1: ['hi how are you?', [2, 3]],
-    2: ['fine thanks', 4],
-    3: ['not so good', 5],
-    4: ['good, have a nice day'],
-    5: ['sorry to hear that']
+
+    0: {
+        text: 'how are you?',
+        choices: [1, 2]
+    },
+    1: {
+        text: 'fine thanks',
+        link: 3
+    },
+    2: {
+        text: 'not so good',
+        link: 4
+    },
+    3: {
+        text: 'good, have a nice day',
+        finish: true
+    },
+    4: {
+        text: 'sorry to hear that',
+        finish: true
+    }
+
 };

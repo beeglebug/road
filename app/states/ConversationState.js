@@ -17,21 +17,79 @@ var ConversationState = function(game) {
 
     this.name = 'conversation';
 
-    this.talkingToLabel = new BitmapText('talking to someone', { font: 'basis33-black' });
-    this.talkingToLabel.position.set(400, 300);
+    this.title = new BitmapText('talking to someone', { font: 'basis33-black' });
+    this.title.position.set(50, 50);
 
-    var talkButton = new Button('finish', function() {
+    this.text = new BitmapText('some text', { font: 'basis33-black' });
+    this.text.position.set(50, 200);
 
-        this.emit('finish');
+    this.buttons = [
+        new Button('choice 1', function() {
+            this.selectChoice(0);
+        }.bind(this), 100, 50),
+        new Button('choice 2', function() {
+            this.selectChoice(1);
+        }.bind(this), 100, 50),
+    ];
 
+    this.finishButton = new Button('finish', function() {
+        this.emit('end-conversation');
     }.bind(this), 100, 50);
 
-    talkButton.position.set(400, 500);
+    this.finishButton.position.set(50, 400);
+    this.buttons[0].position.set(50, 400);
+    this.buttons[1].position.set(250, 400);
 
-    this.displayRoot.addChild(talkButton);
-    this.displayRoot.addChild(this.talkingToLabel);
+    this.displayRoot.addChild(this.finishButton);
+    this.displayRoot.addChild(this.buttons[0]);
+    this.displayRoot.addChild(this.buttons[1]);
+    this.displayRoot.addChild(this.text);
+    this.displayRoot.addChild(this.title);
 };
 
 util.inherits(ConversationState, State);
+
+ConversationState.prototype.enter = function() {
+
+    this.data = require('app/data/dialogue/test');
+
+    this.setNode(this.data[0]);
+};
+
+ConversationState.prototype.setNode = function(node) {
+
+    this.currentNode = node;
+
+    this.text.setText(node.text);
+
+    this.finishButton.visible = false;
+
+    this.buttons.forEach(function(button) {
+        button.visible = false;
+    }.bind(this));
+
+    if(node.choices) {
+        node.choices.forEach(function(choice, ix) {
+            var text = this.data[choice].text;
+            this.buttons[ix].setText(text);
+            this.buttons[ix].visible = true;
+        }.bind(this));
+    }
+
+    if(node.finish) {
+        this.finishButton.visible = true;
+    }
+};
+
+ConversationState.prototype.selectChoice = function(choice) {
+
+    var target = this.currentNode.choices[choice];
+
+    var node = this.data[target];
+
+    var link = this.data[node.link];
+
+    this.setNode(link);
+};
 
 module.exports = ConversationState;

@@ -27,11 +27,6 @@ var RoadGame = function(width, height, selector) {
         'fonts/basis33-white.fnt',
         'fonts/basis33-black.fnt'
     ]);
-
-    // test dialog parsing
-    var data = require('app/data/dialogue/test');
-    var dialogue = DialogueParser.parse(data);
-    console.log(dialogue);
 };
 
 util.inherits(RoadGame, Game);
@@ -100,7 +95,7 @@ RoadGame.prototype.boot = function() {
     }.bind(this));
 
 
-    conversationState.addListener('finish', function() {
+    conversationState.addListener('end-conversation', function() {
 
         this.stateManager.setState('location');
 
