@@ -9,7 +9,6 @@ var TravelState = require('app/states/TravelState');
 var LocationState = require('app/states/LocationState');
 var ConversationState = require('app/states/ConversationState');
 var CompleteState = require('app/states/CompleteState');
-var DialogueParser = require('src/dialogue/DialogueParser');
 var Debug = require('src/Debug');
 
 /**
