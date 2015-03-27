@@ -5,6 +5,7 @@ var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Button = require('src/Button');
+var DialogueNode = require('src/dialogue/DialogueNode');
 
 /**
  * @extends State
@@ -51,8 +52,15 @@ util.inherits(ConversationState, State);
 
 ConversationState.prototype.enter = function() {
 
-    this.data = require('app/data/dialogue/test');
+    var data = require('app/data/dialogue/test');
+    this.data = {};
 
+    for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+
+            this.data[key] = new DialogueNode(data[key], key);
+        }
+    }
     this.setNode(this.data[0]);
 };
 
@@ -76,7 +84,7 @@ ConversationState.prototype.setNode = function(node) {
         }.bind(this));
     }
 
-    if(node.finish) {
+    if(node.final) {
         this.finishButton.visible = true;
     }
 };
@@ -87,9 +95,9 @@ ConversationState.prototype.selectChoice = function(choice) {
 
     var node = this.data[target];
 
-    var link = this.data[node.link];
+    var next = this.data[node.next];
 
-    this.setNode(link);
+    this.setNode(next);
 };
 
 module.exports = ConversationState;

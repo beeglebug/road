@@ -1,11 +1,12 @@
 'use strict';
 
-var DialogueNode = function(id, text) {
+var DialogueNode = function(data, id) {
 
     this.id = id;
-    this.text = text;
-    this.choices = null;
-    this.next = null;
+    this.text = data.text || null;
+    this.choices = data.choices || null;
+    this.next = data.next || null;
+    this.final = data.final || false;
 
 };
 

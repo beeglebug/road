@@ -6,19 +6,19 @@ module.exports = {
     },
     1: {
         text: 'fine thanks',
-        link: 3
+        next: 3
     },
     2: {
         text: 'not so good',
-        link: 4
+        next: 4
     },
     3: {
         text: 'good, have a nice day',
-        finish: true
+        final: true
     },
     4: {
         text: 'sorry to hear that',
-        finish: true
+        final: true
     }
 
 };
