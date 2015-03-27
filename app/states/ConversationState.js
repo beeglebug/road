@@ -5,7 +5,7 @@ var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Button = require('src/Button');
-var DialogueNode = require('src/dialogue/DialogueNode');
+var DialogueNode = require('app/dialogue/DialogueNode');
 
 /**
  * @extends State
