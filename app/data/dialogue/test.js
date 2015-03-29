@@ -10,7 +10,12 @@ module.exports = {
     },
     2: {
         text: 'not so good',
-        next: 4
+        test: function(state) {
+            if(state.friendly) {
+                return 4;
+            }
+            return 9;
+        }
     },
     3: {
         text: 'cool, glad to hear it',
@@ -34,6 +39,10 @@ module.exports = {
     },
     8: {
         text: 'nice try',
+        final: true
+    },
+    9 : {
+        text: 'lol good',
         final: true
     }
 

@@ -18,6 +18,11 @@ var ConversationState = function(game) {
 
     this.name = 'conversation';
 
+    // internal dialogue state
+    this.state = {
+        friendly: true
+    };
+
     this.title = new BitmapText('talking to someone', { font: 'basis33-black' });
     this.title.position.set(50, 50);
 
@@ -95,9 +100,17 @@ ConversationState.prototype.selectChoice = function(choice) {
 
     var node = this.data[target];
 
-    var next = this.data[node.next];
+    var next;
 
-    this.setNode(next);
+    if(node.next) {
+        next = node.next;
+    }
+
+    if(node.test) {
+        next = node.test(this.state);
+    }
+
+    this.setNode(this.data[next]);
 };
 
 module.exports = ConversationState;

@@ -7,6 +7,7 @@ var DialogueNode = function(data, id) {
     this.choices = data.choices || null;
     this.next = data.next || null;
     this.final = data.final || false;
+    this.test = data.test || null;
 
 };
 
