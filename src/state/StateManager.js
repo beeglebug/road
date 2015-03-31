@@ -24,6 +24,11 @@ var StateManager = function() {
     this.currentState = null;
 
     /**
+     * @type {State}
+     */
+    this.previousState = null;
+
+    /**
      * @type {DisplayObjectContainer}
      */
     this.displayRoot = new DisplayObjectContainer();
@@ -57,15 +62,19 @@ StateManager.prototype.getState = function(key) {
  * @param {String} key The unique identifier of the state
  * @returns {boolean}
  */
-StateManager.prototype.setState = function(key) {
+StateManager.prototype.setState = function(state) {
 
-    var state = this.states[key];
-
+    if(typeof state == 'string') {
+        state = this.states[state];
+    }
+    
     if(!state) { return false; }
 
     if(this.currentState) {
         this.currentState.exit();
     }
+
+    this.previousState = this.currentState;
 
     this.currentState = state;
 

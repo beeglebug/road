@@ -22,13 +22,24 @@ var LocationState = function(game) {
     this.locationLabel = new BitmapText('', { font: 'basis33-black' });
     this.locationLabel.position.set(400, 300);
 
-    var leaveButton = new Button('leave', function() {
+    var mapButton = new Button('map', function() {
 
-        this.emit('leave');
+        this.emit('map');
 
     }.bind(this), 100, 50);
 
-    leaveButton.position.set(300, 500);
+    mapButton.position.set(10, 10);
+
+    var vehiclesButton = new Button('vehicles', function() {
+
+        this.emit('vehicles');
+
+    }.bind(this), 100, 50);
+
+    vehiclesButton.position.set(120,10);
+
+    this.displayRoot.addChild(vehiclesButton);
+
 
     var talkButton = new Button('talk', function() {
 
@@ -39,7 +50,7 @@ var LocationState = function(game) {
     talkButton.position.set(500, 500);
 
     this.displayRoot.addChild(this.locationLabel);
-    this.displayRoot.addChild(leaveButton);
+    this.displayRoot.addChild(mapButton);
     this.displayRoot.addChild(talkButton);
 
 };

@@ -9,6 +9,7 @@ var TravelState = require('app/states/TravelState');
 var LocationState = require('app/states/LocationState');
 var ConversationState = require('app/states/ConversationState');
 var CompleteState = require('app/states/CompleteState');
+var VehiclesState = require('app/states/VehiclesState');
 var Debug = require('src/Debug');
 
 /**
@@ -47,6 +48,7 @@ RoadGame.prototype.boot = function() {
     var locationState = this.stateManager.addState('location', new LocationState(this));
     var conversationState = this.stateManager.addState('conversation', new ConversationState(this));
     var completeState = this.stateManager.addState('complete', new CompleteState(this));
+    var vehiclesState = this.stateManager.addState('vehicles', new VehiclesState(this));
 
     // tie the states together
 
@@ -61,6 +63,26 @@ RoadGame.prototype.boot = function() {
         travelState.setLocations(origin, destination);
 
         this.stateManager.setState('travel');
+
+    }.bind(this));
+
+    mapState.addListener('location', function(location) {
+
+        locationState.location = mapState.currentLocation;
+
+        this.stateManager.setState('location');
+
+    }.bind(this));
+
+    mapState.addListener('vehicles', function() {
+
+        this.stateManager.setState('vehicles');
+
+    }.bind(this));
+
+    locationState.addListener('vehicles', function() {
+
+        this.stateManager.setState('vehicles');
 
     }.bind(this));
 
@@ -81,7 +103,7 @@ RoadGame.prototype.boot = function() {
 
     }.bind(this));
 
-    locationState.addListener('leave', function() {
+    locationState.addListener('map', function() {
 
         this.stateManager.setState('map');
 
@@ -105,6 +127,12 @@ RoadGame.prototype.boot = function() {
         mapState.reset();
 
         this.stateManager.setState('main-menu');
+
+    }.bind(this));
+
+    vehiclesState.addListener('back', function() {
+
+        this.stateManager.setState(this.stateManager.previousState);
 
     }.bind(this));
 
