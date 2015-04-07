@@ -7,6 +7,7 @@ var Graphics = require('lib/pixi/pixi').Graphics;
 var MapLocation = require('app/map/MapLocation');
 var DisplayObjectContainer = require('lib/pixi/pixi').DisplayObjectContainer;
 var BitmapText = require('lib/pixi/pixi').BitmapText;
+var Button = require('src/Button');
 
 /**
  * @extends State
@@ -90,6 +91,26 @@ MapState.prototype.draw = function () {
         text.position.set(0, 20);
 
         this.displayRoot.addChild(container);
+
+        var locationButton = new Button('location', function() {
+
+            this.emit('location');
+
+        }.bind(this), 100, 50);
+
+        locationButton.position.set(10,10);
+
+        this.displayRoot.addChild(locationButton);
+
+        var vehiclesButton = new Button('vehicles', function() {
+
+            this.emit('vehicles');
+
+        }.bind(this), 100, 50);
+
+        vehiclesButton.position.set(120,10);
+
+        this.displayRoot.addChild(vehiclesButton);
 
         container.position.set(location.position.x, location.position.y);
 
