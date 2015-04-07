@@ -7,6 +7,10 @@ var FamilyCar = function() {
 
     Vehicle.call(this);
 
+    this.mpg = 40;
+    this.seats = 5;
+    this.capacity = 15;
+
 };
 
 util.inherits(FamilyCar, Vehicle);

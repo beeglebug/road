@@ -2,8 +2,9 @@
 
 var Vehicle = function() {
 
-    this.driver = null;
-
+    this.mpg = 30;
+    this.seats = 4;
+    this.capacity = 10;
 };
 
 module.exports = Vehicle;
