@@ -70,13 +70,17 @@ MapState.prototype.draw = function () {
 
         gfx.drawCircle(0, 0, 10);
 
+        var self = this;
+
         gfx.interactive = true;
         gfx.buttonMode = true;
         gfx.mouseover = function() {
             this.tint = 0x999999;
+            self.setInfo(location);
         };
         gfx.mouseout = function() {
             this.tint = 0xFFFFFF;
+            self.clearInfo();
         };
         gfx.click = function() {
             if(this.currentLocation.isConnectedTo(location)) {
@@ -122,5 +126,12 @@ MapState.prototype.enter = function () {
     this.draw();
 };
 
+MapState.prototype.setInfo = function(location) {
+
+};
+
+MapState.prototype.clearInfo = function() {
+
+};
 
 module.exports = MapState;
