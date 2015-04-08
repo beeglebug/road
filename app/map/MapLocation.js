@@ -19,4 +19,10 @@ MapLocation.prototype.isConnectedTo = function(location) {
     return this.connections.indexOf(location) > -1;
 };
 
+MapLocation.prototype.distanceTo = function(location) {
+
+    return 100;
+
+};
+
 module.exports = MapLocation;

@@ -11,6 +11,12 @@ var MapLocationInfo = function() {
 
 };
 
-util.inherits(Button, DisplayObjectContainer);
+MapLocationInfo.prototype.update = function(location, state) {
+
+    var distance = state.currentLocation.distanceTo(location);
+
+};
+
+util.inherits(MapLocationInfo, DisplayObjectContainer);
 
 module.exports = MapLocationInfo;
