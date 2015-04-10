@@ -5,7 +5,7 @@ var util = require('util');
 var State = require('src/state/State');
 var BitmapText = require('lib/pixi/pixi').BitmapText;
 var Button = require('src/Button');
-var DialogueNode = require('app/dialogue/DialogueNode');
+var clone = require('clone');
 
 /**
  * @extends State
@@ -18,9 +18,14 @@ var ConversationState = function(game) {
 
     this.name = 'conversation';
 
-    // internal dialogue state
+    // temp fake game state
     this.state = {
-        friendly: true
+        dialogue : {
+            pc : {},
+            npc : {
+                friendly: false
+            }
+        }
     };
 
     this.title = new BitmapText('talking to someone', { font: 'basis33-black' });
@@ -29,13 +34,18 @@ var ConversationState = function(game) {
     this.text = new BitmapText('some text', { font: 'basis33-black' });
     this.text.position.set(50, 200);
 
+    var self = this;
+
     this.buttons = [
-        new Button('choice 1', function() {
-            this.selectChoice(0);
-        }.bind(this), 100, 50),
-        new Button('choice 2', function() {
-            this.selectChoice(1);
-        }.bind(this), 100, 50),
+        new Button('option 0', function() {
+            self.selectOption(this.option);
+        }, 100, 50),
+        new Button('option 1', function() {
+            self.selectOption(this.option);
+        }, 100, 50),
+        new Button('option 2', function() {
+            self.selectOption(this.option);
+        }, 100, 50),
     ];
 
     this.finishButton = new Button('finish', function() {
@@ -45,10 +55,12 @@ var ConversationState = function(game) {
     this.finishButton.position.set(50, 400);
     this.buttons[0].position.set(50, 400);
     this.buttons[1].position.set(250, 400);
+    this.buttons[2].position.set(450, 400);
 
     this.displayRoot.addChild(this.finishButton);
     this.displayRoot.addChild(this.buttons[0]);
     this.displayRoot.addChild(this.buttons[1]);
+    this.displayRoot.addChild(this.buttons[2]);
     this.displayRoot.addChild(this.text);
     this.displayRoot.addChild(this.title);
 };
@@ -57,19 +69,18 @@ util.inherits(ConversationState, State);
 
 ConversationState.prototype.enter = function() {
 
-    var data = require('app/data/dialogue/test');
-    this.data = {};
+    this.data = require('app/data/dialogue/test');
 
-    for (var key in data) {
-        if (data.hasOwnProperty(key)) {
+    this.state.dialogue.variables = clone(this.data._variables);
 
-            this.data[key] = new DialogueNode(data[key], key);
-        }
-    }
-    this.setNode(this.data[0]);
+    this.setNode(this.data._root);
 };
 
 ConversationState.prototype.setNode = function(node) {
+
+    if(typeof node === 'function') {
+        node = node(this.state);
+    }
 
     this.currentNode = node;
 
@@ -81,36 +92,26 @@ ConversationState.prototype.setNode = function(node) {
         button.visible = false;
     }.bind(this));
 
-    if(node.choices) {
-        node.choices.forEach(function(choice, ix) {
-            var text = this.data[choice].text;
-            this.buttons[ix].setText(text);
-            this.buttons[ix].visible = true;
-        }.bind(this));
-    }
+    if(node.options) {
+        var option, text, i = 0;
+        for(option in node.options) {
+            text = node.options[option];
+            this.buttons[i].setText(text);
+            this.buttons[i].visible = true;
+            this.buttons[i].option = option;
+            i++;
+        }
 
-    if(node.final) {
+    } else {
         this.finishButton.visible = true;
     }
 };
 
-ConversationState.prototype.selectChoice = function(choice) {
+ConversationState.prototype.selectOption = function(option) {
 
-    var target = this.currentNode.choices[choice];
+    var node = this.data[option];
 
-    var node = this.data[target];
-
-    var next;
-
-    if(node.next) {
-        next = node.next;
-    }
-
-    if(node.test) {
-        next = node.test(this.state);
-    }
-
-    this.setNode(this.data[next]);
+    this.setNode(node);
 };
 
 module.exports = ConversationState;

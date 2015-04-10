@@ -13,6 +13,7 @@
     "vinyl-transform": "~1.0.0",
     "browserify": "~9.0.3",
     "gulp-watch": "~4.1.1",
-    "gulp": "~3.8.11"
+    "gulp": "~3.8.11",
+    "clone": "~1.0.2"
   }
 }

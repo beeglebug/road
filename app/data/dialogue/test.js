@@ -1,49 +1,51 @@
-module.exports = {
+'use strict';
 
-    0: {
-        text: 'how are you?',
-        choices: [1, 2]
+var self = module.exports = {
+
+    _variables : {
+        pardons : 0
     },
-    1: {
-        text: 'fine thanks',
-        next: 3
-    },
-    2: {
-        text: 'not so good',
-        test: function(state) {
-            if(state.friendly) {
-                return 4;
-            }
-            return 9;
+
+    _root : {
+        text: 'hi how are you?',
+        options: {
+            good : 'fine thanks',
+            notGood : 'not good',
+            pardon : 'pardon?'
         }
     },
-    3: {
-        text: 'cool, glad to hear it',
-        final: true
+
+    pardon : function(state) {
+        if(++state.dialogue.variables.pardons < 3) {
+            return self._root;
+        } else {
+            return self.goAway;
+        }
     },
-    4: {
-        text: 'sorry to hear that, anything I can do?',
-        choices: [5,6]
+
+    goAway : {
+        text : 'go away'
     },
-    5: {
-        text: 'nah, not really',
-        next: 7
+
+    good : {
+        text : 'glad to hear it'
     },
-    6: {
-        text: 'give me free stuff?',
-        next: 8
+
+    notGood : function(state) {
+        if(state.dialogue.npc.friendly) {
+            return self.sorry;
+        } else {
+            return self.neverMind;
+        }
     },
-    7: {
-        text: 'oh well',
-        final: true
+
+    sorry : {
+        text : 'sorry to hear that'
     },
-    8: {
-        text: 'nice try',
-        final: true
-    },
-    9 : {
-        text: 'lol good',
-        final: true
+
+    neverMind : {
+        text : 'nevermind'
     }
+
 
 };
